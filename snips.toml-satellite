@@ -1,6 +1,6 @@
 [snips-common]
 bus = "mqtt"
-mqtt = "localhost:1883"
+mqtt = "192.168.1.1:1883"
 # audio = ["+@mqtt"]
 # assistant = "/usr/share/snips/assistant"
 # user_dir = "/var/lib/snips"
@@ -24,6 +24,8 @@ mqtt_password = "<pass>"
 # beam_size = 8
 # model = "/usr/share/snips/asr"
 # audio = ["+@mqtt"]
+# partial = false
+# partial_period_ms = 250
 
 [snips-asr-google]
 # credentials = "/usr/share/snips/googlecredentials.json"
@@ -31,9 +33,10 @@ mqtt_password = "<pass>"
 
 [snips-audio-server]
 # frame = 256
-bind = "server@mqtt"
+bind = "kitchen@mqtt"
 # mike = "Built-in Microphone"
 # disable_playback = false
+# disable_capture = false
 
 [snips-dialogue]
 # resources = "/usr/share/snips/dialogue"
@@ -46,7 +49,9 @@ bind = "server@mqtt"
 # model = "/usr/share/snips/hotword"
 # hotword_id = "default"
 # sensitivity = "0.5"
-audio = ["server@mqtt"]
+# audio = ["+@mqtt"]
+# no_vad_inhibitor = false
+# vad_messages = false
 
 [snips-injection]
 #asr_model = "/usr/share/snips/asr"
@@ -63,3 +68,10 @@ audio = ["server@mqtt"]
 ## customtts specific configuration (here configured to use picotts using the en-US language)
 ## available placeholder variables : %%OUTPUT_FILE%%, %%LANG%%, %%TEXT%%
 # customtts = { command = ["pico2wave", "-w", "%%OUTPUT_FILE%%", "-l", "en-US", "%%TEXT%%"] }
+
+[snips-pegasus]
+# address = "0.0.0.0:8443"
+## Pegasus TLS configuration
+## Self signing certificates are generated with /usr/local/bin/snips-pegasus-tls-keygen.sh
+# tls_certificate_chain = "/var/lib/snips/pegasus/tls/server.fullchain"
+# tls_private_key = "/var/lib/snips/pegasus/tls/server.key"
